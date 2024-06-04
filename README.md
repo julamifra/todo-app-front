@@ -1,4 +1,4 @@
-# Todo-App Nexplore exercise
+# Frontend Todo-App -> Nexplore exercise
 
 React + TypeScript + Vite
 
