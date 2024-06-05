@@ -13,7 +13,6 @@ export const getTodoList = async (): Promise<[Error?, Todo[]?]> => {
     );
     if (!res.ok) {
       const resKO: ErrorResponse = await res.json();
-      console.log(new Error(resKO.errorCode));
       return [new Error(resKO.errorCode)];
     }
     const json: Todo[] = await res.json();

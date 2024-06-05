@@ -6,7 +6,7 @@ function TodoList({ todoList }: TodoListProps) {
   return (
     <ul className={styles.list}>
       {todoList.map((todo) => (
-        <li key={todo.id} className={`${todo.completed ? "completed" : ""}`}>
+        <li key={todo.id}>
           <Todo
             key={todo.id}
             id={todo.id}
