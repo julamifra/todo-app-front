@@ -21,14 +21,14 @@ export const useTodos = (): {
   handleOnAddTodo: ({ name }: TodoName) => void;
 } => {
   const [todoList, setTodoList] = useState([] as Todo[]);
-  const [error, setError] = useState("");
+  const [errorState, setErrorState] = useState("");
 
   useEffect(() => {
     async function fetchData() {
       const [error, todoListData] = await getTodoList();
       if (error) {
         console.error(error);
-        setError(error.message);
+        setErrorState(error.message);
         return [];
       }
       if (todoListData) {
@@ -42,7 +42,7 @@ export const useTodos = (): {
     const [error] = await deleteTodo({ id });
     if (error) {
       console.error(error);
-      setError(error.message);
+      setErrorState(error.message);
       return;
     }
     const newTodoList = todoList.filter((todo) => todo.id !== id);
@@ -59,7 +59,7 @@ export const useTodos = (): {
     const [error] = await updateTodo(id, completed);
     if (error) {
       console.error(error);
-      setError(error.message);
+      setErrorState(error.message);
       return;
     }
     const newTodoList = todoList.map((todo) => {
@@ -79,7 +79,7 @@ export const useTodos = (): {
     const [error, todoCreated] = await createTodo(newTodo);
     if (error) {
       console.error(error);
-      setError(error.message);
+      setErrorState(error.message);
       return;
     }
     if (todoCreated) {
@@ -93,6 +93,6 @@ export const useTodos = (): {
     handleRemove,
     handleOnAddTodo,
     todoList: todoList,
-    error,
+    error: errorState,
   };
 };
