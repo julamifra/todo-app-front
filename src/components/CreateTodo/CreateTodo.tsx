@@ -7,12 +7,19 @@ function CreateTodo({ saveTodo }: CreateTodoProps) {
     useForm(saveTodo);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleSubmit();
+      }}
+    >
       <div className={styles.inputContainer}>
         <input
           className={styles.input}
           value={inputValue}
-          onChange={handleOnChange}
+          onChange={(event) => {
+            handleOnChange(event.target.value);
+          }}
           placeholder="¿Qué quieres añadir?"
           autoFocus
           maxLength={255}

@@ -1,11 +1,6 @@
-import { useState, useEffect } from "react";
 import { TodoId, TodoName, Todo } from "../types/Todo";
-import {
-  createTodo,
-  getTodoList,
-  deleteTodo,
-  updateTodo,
-} from "../services/todo";
+import { createTodo, deleteTodo, updateTodo } from "../services/todo";
+import { useFetchTodoList } from "./useFetchTodoList";
 
 export const useTodos = (): {
   todoList: Todo[];
@@ -20,23 +15,8 @@ export const useTodos = (): {
   handleRemove: ({ id }: TodoId) => void;
   handleOnAddTodo: ({ name }: TodoName) => void;
 } => {
-  const [todoList, setTodoList] = useState([] as Todo[]);
-  const [errorState, setErrorState] = useState("");
-
-  useEffect(() => {
-    async function fetchData() {
-      const [error, todoListData] = await getTodoList();
-      if (error) {
-        console.error(error);
-        setErrorState(error.message);
-        return [];
-      }
-      if (todoListData) {
-        setTodoList(todoListData);
-      }
-    }
-    fetchData();
-  }, []);
+  const { errorState, todoList, setErrorState, setTodoList } =
+    useFetchTodoList();
 
   const handleRemove = async ({ id }: TodoId) => {
     const [error] = await deleteTodo({ id });

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { validateForm } from "../utils/validations";
 
 export const useForm = (saveTodo: ({ name }: { name: string }) => void) => {
   const [inputValue, setInputValue] = useState("");
   const [formError, setFormError] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    const error = validate(inputValue);
+  const handleSubmit = (): void => {
+    const error = validateForm(inputValue);
     if (error) {
       setFormError(error);
       return;
@@ -16,15 +16,8 @@ export const useForm = (saveTodo: ({ name }: { name: string }) => void) => {
     setFormError("");
   };
 
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setInputValue(event.target.value);
-  };
-
-  const validate = (value: string) => {
-    if (!value) {
-      return "No puedes añadir una tarea vacía";
-    }
-    return "";
+  const handleOnChange = (value: string): void => {
+    setInputValue(value);
   };
 
   return {
