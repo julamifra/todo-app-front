@@ -7,4 +7,7 @@ export default defineConfig({
   test: {
     environment: "happy-dom",
   },
+  define: {
+    "global.IS_REACT_ACT_ENVIRONMENT": true,
+  },
 });
