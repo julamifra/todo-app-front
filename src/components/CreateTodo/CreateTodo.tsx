@@ -20,7 +20,7 @@ function CreateTodo({ saveTodo }: CreateTodoProps) {
           onChange={(event) => {
             handleOnChange(event.target.value);
           }}
-          placeholder="¿Qué quieres añadir?"
+          placeholder="What would you like to do?"
           autoFocus
           maxLength={255}
         ></input>
