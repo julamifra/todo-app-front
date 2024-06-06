@@ -1,11 +1,7 @@
 .todo {
   display: flex;
   text-align: left;
-  input {
-    height: 30px;
-    margin: auto 0;
-    width: 30px;
-  }
+
   label {
     color: #484848;
     display: block;
@@ -38,4 +34,24 @@
     height: 100%;
     line-height: 1.1;
   }
+}
+
+.completedCheckbox {
+  height: 30px;
+  margin: auto 0;
+  width: 30px;
+}
+.inputContainer {
+  padding: 15px 15px 15px 60px;
+}
+.editingInput {
+  height: 100%;
+  width: 100%;
+  border: none;
+  font-weight: 400;
+  font-size: 24px;
+  margin-left: 25px;
+}
+.editingInput:focus {
+  outline: none;
 }

@@ -27,6 +27,7 @@ describe("Testing Todo component", () => {
 
   let handleCompletedMock: Mock;
   let handleRemoveMock: Mock;
+  let handleEditNameMock: Mock;
   let rendComponent: RenderResult;
 
   beforeEach(() => {
@@ -37,6 +38,7 @@ describe("Testing Todo component", () => {
         value={{
           handleCompleted: handleCompletedMock,
           handleRemove: handleRemoveMock,
+          handleEditName: handleEditNameMock,
         }}
       >
         <Todo {...mockTodoProp} />
@@ -53,8 +55,6 @@ describe("Testing Todo component", () => {
   });
 
   test("clicking the checkbox calls event handler once", () => {
-    expect(rendComponent).toBeDefined();
-
     const checkbox = rendComponent.getByRole("checkbox");
     expect(checkbox).toBeDefined();
 
@@ -63,8 +63,6 @@ describe("Testing Todo component", () => {
   });
 
   test("clicking the button calls event handler once", () => {
-    expect(rendComponent).toBeDefined();
-
     const button = rendComponent.getByRole("button");
     expect(button).toBeDefined();
 
@@ -73,5 +71,21 @@ describe("Testing Todo component", () => {
     expect(handleRemoveMock).toHaveBeenCalledWith({ id: mockTodoProp.id });
   });
 
-  test("clicking the button, the label is crossed out", () => {});
+  test("doubleClinking the label, the checkbox dissapears", () => {
+    const label = rendComponent.getByText(mockTodoProp.name);
+    expect(label).toBeDefined();
+    fireEvent.dblClick(label);
+    const checkbox = rendComponent.container.querySelector(
+      'input[type="checkbox"]'
+    );
+    expect(checkbox).toBeNull();
+  });
+
+  test("doubleClinking the label, an input appears", () => {
+    const label = rendComponent.getByText(mockTodoProp.name);
+    expect(label).toBeDefined();
+
+    fireEvent.dblClick(label);
+    rendComponent.getByRole("textbox");
+  });
 });

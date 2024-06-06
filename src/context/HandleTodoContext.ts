@@ -10,6 +10,7 @@ export interface TodoContextProps {
     id: string;
     completed: boolean;
   }) => void;
+  handleEditName: ({ id, name }: { id: string; name: string }) => void;
 }
 
 export const HandleTodoContext = createContext<TodoContextProps | undefined>(

@@ -1,20 +1,29 @@
 import "./App.css";
 import TodoList from "./components/TodoList/TodoList";
 import Header from "./components/Header";
-import { useTodos } from "./hooks/useTodos";
+import { useHandleTodos } from "./hooks/useHandleTodos";
 import { HandleTodoContext } from "./context/HandleTodoContext";
 import ErrorMessage from "./components/ErrorMessage";
 
 function App() {
-  const { todoList, error, handleCompleted, handleRemove, handleOnAddTodo } =
-    useTodos();
+  const {
+    todoList,
+    error,
+    handleCompleted,
+    handleRemove,
+    handleEditName,
+    handleOnAddTodo,
+  } = useHandleTodos();
+
   return (
     <>
       <Header onAddTodo={handleOnAddTodo}></Header>
       {error ? (
         <ErrorMessage error={error} />
       ) : (
-        <HandleTodoContext.Provider value={{ handleRemove, handleCompleted }}>
+        <HandleTodoContext.Provider
+          value={{ handleRemove, handleCompleted, handleEditName }}
+        >
           <TodoList todoList={todoList} />
         </HandleTodoContext.Provider>
       )}

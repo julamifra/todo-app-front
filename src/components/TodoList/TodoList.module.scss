@@ -7,11 +7,6 @@
     border-bottom: 2px solid #ededed;
     font-size: 24px;
     position: relative;
-    &.completed {
-      label {
-        text-decoration: line-through !important;
-      }
-    }
     &:hover {
       button {
         display: block;

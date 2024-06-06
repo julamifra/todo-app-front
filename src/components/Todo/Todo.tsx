@@ -1,28 +1,57 @@
-import React, { useContext } from "react";
 import { TodoProps } from "../../types/Todo";
 import styles from "./Todo.module.scss";
-import { HandleTodoContext } from "../../context/HandleTodoContext";
+import { useSingleTodo } from "../../hooks/useSingleTodo";
 
 function Todo({ id, name, completed }: TodoProps) {
-  const handleTodoContext = useContext(HandleTodoContext);
-
-  const handleChangeCheckbox = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    handleTodoContext?.handleCompleted({ id, completed: event.target.checked });
-  };
+  const {
+    isEditing,
+    editingValue,
+    handleBlur,
+    handleDoubleClick,
+    handleChangeInput,
+    handleChangeCheckbox,
+    handleOnSubmit,
+    handleRemove,
+  } = useSingleTodo(id, name);
 
   return (
     <div className={styles.todo}>
-      <input
-        type="checkbox"
-        checked={completed}
-        onChange={handleChangeCheckbox}
-      ></input>
-      <label style={{ textDecoration: completed ? "line-through" : "" }}>
-        {name}
-      </label>
-      <button onClick={() => handleTodoContext?.handleRemove({ id })}></button>
+      {isEditing ? (
+        <div className={styles.inputContainer}>
+          <form
+            onSubmit={(ev) => {
+              ev.preventDefault();
+              handleOnSubmit();
+            }}
+          >
+            <input
+              type="text"
+              className={styles.editingInput}
+              onChange={(ev) => handleChangeInput(ev.target.value)}
+              value={editingValue}
+              autoFocus
+              onBlur={handleBlur}
+            ></input>
+          </form>
+        </div>
+      ) : (
+        <>
+          <input
+            type="checkbox"
+            className={styles.completedCheckbox}
+            checked={completed}
+            onChange={(ev) => handleChangeCheckbox(ev.target.checked)}
+          ></input>
+          <label
+            style={{ textDecoration: completed ? "line-through" : "" }}
+            onDoubleClick={handleDoubleClick}
+          >
+            {editingValue}
+          </label>
+        </>
+      )}
+
+      <button onClick={handleRemove}></button>
     </div>
   );
 }

@@ -51,12 +51,13 @@ export const createTodo = async (
 
 export const updateTodo = async (
   id: string,
-  newCompleted: boolean
-  //   newName?: string
+  newCompleted?: boolean,
+  newName?: string
 ): Promise<[Error?, Todo?]> => {
   try {
     const newBody = {
       newCompleted: newCompleted,
+      newName: newName,
     } as UpdateTodoBodyRequest;
 
     const res = await fetch(

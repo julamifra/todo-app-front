@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTodoList } from "../services/todo";
+import { getTodoList } from "../services/todoService";
 import { Todo } from "../types/Todo";
 
 export const useFetchTodoList = () => {
@@ -10,7 +10,6 @@ export const useFetchTodoList = () => {
     async function fetchData() {
       const [error, todoListData] = await getTodoList();
       if (error) {
-        console.error(error);
         setErrorState(error.message);
         return [];
       }
